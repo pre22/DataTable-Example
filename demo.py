@@ -18,7 +18,22 @@ class User(Base):
     username = Column(String(50))
     password = Column(String(50))
 
-Base.metadata.create_all(engine)
-
-
 # Migrate
+# Base.metadata.create_all(engine)
+
+# Add Data 
+# user_one = User(username="pre.chika.22@gmail.com", password="user1234")
+# user_two = User(username="pre.chika.22@gmail.com", password="user1234")
+# user_three = User(username="pre.chika.22@gmail.com", password="user1234")
+# # session.add(user_one)
+# session.add_all([user_two, user_three])
+# session.commit()
+
+
+# data = session.query(User).all()
+# data = session.query(User).filter(User.id == 1).one
+# print(data)
+
+data = session.query(User).filter(User.username=="pre.chika.22@gmail.com").first()
+data.password = "user2424"
+session.commit()
