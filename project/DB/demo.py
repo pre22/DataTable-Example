@@ -18,6 +18,7 @@ class User(Base):
 
     username = Column(String(50))
     password = Column(String(50))
+    session_id = relationship('SessionDB', back_populates="users")
 
     def __repr__(self):
         return f"{self.username}"
@@ -29,7 +30,7 @@ class SessionDB(Base):
     id = Column(Integer, primary_key=True)
 
     user_id = Column(Integer, ForeignKey(User.id, ondelete="CASCADE"))
-    user = relationship(User, back_populates="username")
+    users = relationship('User', back_populates="session_id")
 
     session_item = Column(String(300))
     session_value= Column(String(300))
@@ -40,13 +41,13 @@ class SessionDB(Base):
 # User.addresses = relationship("SessionDB", order_by=SessionDB.id, back_populates="user")
 
 # Migrate
-Base.metadata.create_all(engine)
+# Base.metadata.create_all(engine)
 
 # Add Data 
-# user_one = User(username="pre.chika.22@gmail.com", password="user1234")
+user_one = User(username="pre.chika.22@gmail.com", password="user1234")
 # user_two = User(username="pre.chika.22@gmail.com", password="user1234")
 # user_three = User(username="pre.chika.22@gmail.com", password="user1234")
-# session.add(user_one)
+session.add(user_one)
 # session.add_all([user_two, user_three])
 # session.commit()
 
